@@ -1,18 +1,18 @@
 ﻿namespace DinnerParty
 {
-    class DinnerParty
+    class DinnerParty : Party
     {
-        public const int CostOfFoodPerPerson = 25;
-        public int NumberOfPeople { get; set; }
-        public bool FancyDecorations { get; set; }
         public bool HealthyOption { get; set; }
 
-        public decimal Cost
+        public override decimal Cost
         {
             get
             {
-                decimal totalFoodCost = (CalculateCostOfBeveragesPerPerson() + CostOfFoodPerPerson) * NumberOfPeople;
-                decimal totalCost = CalculateCostOfDecorations() + totalFoodCost;
+                decimal totalCost = base.Cost;
+                totalCost += CalculateCostOfDecorations();
+
+                decimal totalBeverageCost = CalculateCostOfBeveragesPerPerson() * NumberOfPeople;
+                totalCost += totalBeverageCost;
 
                 if (HealthyOption)
                 {

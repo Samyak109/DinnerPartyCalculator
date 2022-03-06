@@ -2,12 +2,8 @@
 
 namespace DinnerParty
 {
-    class BirthdayParty
+    class BirthdayParty : Party
     {
-        public const int CostOfFoodPerPerson = 25;
-        public int NumberOfPeople { get; set; }
-
-        public bool FancyDecorations { get; set; }
 
         public string CakeWriting { get; set; }
 
@@ -75,21 +71,20 @@ namespace DinnerParty
             return costOfDecorations;
         }
 
-        public decimal Cost
+        public override decimal Cost
         {
             get
             {
-                decimal totalCost = CalculateCostOfDecorations();
-                totalCost += CostOfFoodPerPerson * NumberOfPeople;
-                decimal cakeCost;
+                decimal totalCost = base.Cost;
+                totalCost += CalculateCostOfDecorations();
+
                 if (CakeSize() == 8)
                 {
-                    cakeCost = 40M + ActualLength * .25M;
+                    totalCost += 40M + ActualLength * .25M;
                 }
                 {
-                    cakeCost = 75M + ActualLength * .25M;
+                    totalCost += 75M + ActualLength * .25M;
                 }
-                totalCost += cakeCost;
                 return totalCost;
             }
         }
